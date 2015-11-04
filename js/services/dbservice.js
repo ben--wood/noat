@@ -60,59 +60,12 @@
               service.db_ = database;
               service.noteTable_ = service.db_.getSchema().table(TABLE.Note);
               window.db = database;
-              onConnected();
               deferred.resolve();                     
             }));
                 
         return deferred.promise; 
       }
       
-    
-      /**
-      * Checks if any data exists in the DB.
-      * @return {!angular.$q.Promise.<!boolean>}
-      */
-      function checkForExistingData() {  
-        var deferred = $q.defer(); 
-        
-        service.db_.select().from(service.noteTable_).exec().then(
-          function(rows) {
-            deferred.resolve(rows.length > 0);
-          }
-        );
-        
-        return deferred.promise;
-      }
-    
-      /**
-      * Inserts seed data into the DB.
-      * @return {!angular.$q.Promise}      
-      * @private
-      */
-      function insertSeedData() {
-        $log.debug('Populating initial Note data');
-        
-        var url = "../js/data/notes.json";
-        if (ionic.Platform.isAndroid()) {
-          url = "/android_asset/www/js/data/notes.json";
-        } else if (ionic.Platform.isIOS()) {
-          url = "js/data/notes.json";
-        }
-        
-        return $http.get(url).then(
-          function(response) {
-            var rows = response.data.map(function(obj) {
-              return service.noteTable_.createRow(obj);
-            });
-            
-            return service.db_.insert()
-                      .into(service.noteTable_)
-                      .values(rows)
-                      .exec();
-          });
-      }
-
-    
       /**
       * Builds the database schema.
       * @return {!lf.schema.Builder}
@@ -121,34 +74,17 @@
       * https://github.com/google/lovefield/blob/master/docs/spec/01_schema.md
       */
       function buildSchema() {  
-        var schemaBuilder = lf.schema.create('LoveField-Starter', 1);
+        var schemaBuilder = lf.schema.create('noat', 1);
         schemaBuilder.createTable(TABLE.Note).
           addColumn('id', lf.Type.STRING).
           addColumn('text', lf.Type.STRING).
+          addColumn('sortOrder', lf.Type.INTEGER).
+          addColumn('dateCreated', lf.Type.DATE_TIME).
+          addColumn('dateUpdated', lf.Type.DATE_TIME).
           addPrimaryKey(['id']).
           addIndex('idx_text', ['text']);
         return schemaBuilder;
       }
       
-      
-      /**
-      * Seeds the database with some dummy data if no data exists.
-      * @private
-      * TODO: this means there will never be 0 notes in the database so perhaps better moved into app.run?
-      */
-      function onConnected() {
-        checkForExistingData().then(
-          function(dataExists){            
-            if (dataExists === false) {
-              insertSeedData().then(
-                function(){
-                  $rootScope.$broadcast('lovefield-starter-event:seedDataInserted');
-                }
-              );  
-            }                 
-          }
-        );
-      }
-
     }
 })();

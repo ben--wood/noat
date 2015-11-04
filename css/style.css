@@ -1,1 +1,32 @@
-/* Empty. Add your own CSS if you like */
+.float-button {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  width: 30px;
+  padding: 30px;
+  font-size: 60px;
+  position: fixed;
+  bottom: 30px; 
+  right: 30px; 
+  z-index: 9999;
+}
+
+.float-button .height_fix {
+  margin-top: 100%;
+}
+
+.float-button .content {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: -30px; /* this must be half the font size */
+  color: #387ef5;
+}
+
+.time-ago {
+  font-size: 12px !important;
+}
+

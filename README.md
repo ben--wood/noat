@@ -1,2 +1,2 @@
 # noat
-A simple note taking app using the Ionic Framework and LoveField JavaScript relational database functionality 
+A simple note taking app using the Ionic Framework and LoveField JavaScript relational database 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('app', ['ionic'])
+  .module('app', ['ionic', 'ngCordova', 'angularMoment'])
   
   .constant('TABLE', {
     Note: 'Note'

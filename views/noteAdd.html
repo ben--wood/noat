@@ -7,11 +7,11 @@
                 </label>
                 <div ng-if="vm.noteAddForm.$submitted !== undefined && vm.noteAddForm.$submitted === true && vm.noteAddForm.noteText.$invalid">
                     <div class="item item-text-wrap assertive">
-                        <span ng-show="vm.noteAddForm.noteText.$error.required">Oops! Please enter some text for your note</span>
-                        <span ng-show="vm.noteAddForm.noteText.$error.maxlength">Oops! Your note cannot be longer than 2000 characters</span>
+                        <span ng-show="vm.noteAddForm.noteText.$error.required">Please enter some text for your note</span>
+                        <span ng-show="vm.noteAddForm.noteText.$error.maxlength">Sorry your note cannot be longer than 2000 characters</span>
                     </div>
                 </div>
-                <button type="submit" class="button button-block button-positive" ng-click="vm.addNote()">Submit</button>
+                <button type="submit" class="button button-block button-positive" ng-click="vm.addNote()">Save</button>
             </div>
         </form>        
     </ion-content>
